@@ -2,7 +2,7 @@
   <footer class="footer">
     <hr>
     <div class="container">
-        <a href="https://github.com/taddcrockett/plift">Repository</a>
+        <a href="https://github.com/taddcrockett/plift-webpack">Repository</a>
     </div>
   </footer>
 </template>
