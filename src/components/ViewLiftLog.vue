@@ -20,7 +20,7 @@
                     <input v-model="lift.weight" type="number">
                     <label> Reps: </label>
                     <input v-model="lift.reps" type="number">
-                    <label> Date: {{new Date(lift.date)}} </label>
+                    <label> Date: {{new Date(lift.created)}} </label>
                     <button type="submit" class="btn btn-success">Update</button>
                 </form>
             </li>
@@ -41,19 +41,21 @@ export default {
       };
   },
     methods: {
-      viewLiftLog: function() {
-        axios.get("/api/liftlog/" + this.selectedLift).then(response => {
-        this.lifts = response.data;
-        return true;
-      }).catch(err => {
-      });
-      },
+        viewLiftLog: function () {
+            console.log(this.$store.state.user.id)
+            axios.get("/api/users/" + this.$store.state.user.id + "/liftlog/" + this.selectedLift).then(response => {
+                this.lifts = response.data.lifts;
+            }).catch(err => {
+                console.log("getLifts failed:", err);
+            });
+        },
       updateLog: function(id, weight, reps) {
-        axios.put("/api/liftlog/" + this.selectedLift + "/" + id, {
+        axios.put("/api/users/" + this.$store.state.user.id + "/liftlog/" + this.selectedLift + "/" + id, {
             weight: weight,
             reps: reps
         }).then(response => {
-            this.lifts = response.data;
+            console.log(response)
+            this.lifts = response.data.lifts;
             this.update_message = "Update for " + id + " succeeded."; 
             return true;
       }).catch(err => {

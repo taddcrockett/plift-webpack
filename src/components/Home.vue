@@ -1,5 +1,7 @@
 <template>
-  <div class="container">
+  <div>
+    <div v-if="loggedIn">
+      <div class="container">
             <div class="jumbotron">
                 <h1 class="display-4">{{welcome}}</h1>
                 <p class="lead">{{message1}}</p>
@@ -12,11 +14,18 @@
                 <p>{{ quote_title }}</p>
             </div>
         </div>
+    </div>
+    <div v-else>
+      <welcome-page/>
+    </div>
+  </div>
 </template>
 
 <script>
+ import WelcomePage from './WelcomePage';
 export default {
   name: 'Home',
+  components: {WelcomePage},
   data () {
     return {
         quote_title: '',
@@ -27,6 +36,11 @@ export default {
         quote_message: 'Get new quote'    
     }
   },
+  computed: {
+     loggedIn: function() {
+       return this.$store.getters.loggedIn;
+     },
+   },
     methods: {
         getQuote: function () {
             console.log("Getting quote")

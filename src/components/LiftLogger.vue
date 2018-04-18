@@ -44,7 +44,7 @@ export default {
   },
   methods: {
       logLift: function() {
-        axios.post("/api/liftlog", {
+        this.$store.dispatch('addLift', {
         lift: this.selectedLift,
         weight: this.weight,
         reps: this.reps
